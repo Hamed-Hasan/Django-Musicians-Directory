@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Musician List</h2>
+<a href="{% url 'musician_new' %}" class="btn btn-primary">Add New Musician</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Musician Name</th>
+            <th>Email</th>
+            <th>Instrument Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for musician in object_list %}
+        <tr>
+            <td>{{ musician.id }}</td>
+            <td><a href="{% url 'musician_edit' musician.pk %}">{{ musician.first_name }} {{ musician.last_name }}</a></td>
+            <td>{{ musician.email }}</td>
+            <td>{{ musician.instrument_type }}</td>
+            <td>
+                <a href="{% url 'musician_edit' musician.pk %}" class="btn btn-sm btn-secondary">Edit</a>
+                <a href="{% url 'musician_delete' musician.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No musicians found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

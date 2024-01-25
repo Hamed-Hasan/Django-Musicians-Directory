@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Album List</h2>
+<a href="{% url 'album_new' %}" class="btn btn-primary">Add New Album</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Album Name</th>
+            <th>Musician</th>
+            <th>Release Date</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for album in object_list %}
+        <tr>
+            <td>{{ album.name }}</td>
+            <td>{{ album.musician }}</td>
+            <td>{{ album.release_date }}</td>
+            <td>{{ album.rating }}</td>
+            <td>
+                <a href="{% url 'album_edit' album.pk %}" class="btn btn-sm btn-secondary">Edit</a>
+                <a href="{% url 'album_delete' album.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No albums found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
